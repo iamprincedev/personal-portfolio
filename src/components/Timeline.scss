@@ -1,0 +1,82 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.tl {
+  @include section;
+
+  &__inner {
+    @include container;
+  }
+
+  &__list {
+    position: relative;
+    margin-top: 3rem;
+    padding-left: 2rem;
+
+    @include mobile { padding-left: 1.25rem; }
+  }
+
+  &__spine {
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: linear-gradient(to bottom, $amber, $ink-border 85%);
+    transform-origin: top;
+  }
+
+  &__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1.5rem;
+    padding-bottom: 2.5rem;
+
+    &:last-child { padding-bottom: 0; }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+
+  &__dot {
+    position: absolute;
+    left: -2rem;
+    top: 5px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: $ink;
+    border: 2px solid $amber;
+
+    @include mobile { left: -1.25rem; }
+  }
+
+  &__year {
+    font-family: $font-mono;
+    font-size: 0.8rem;
+    color: $paper-faint;
+    padding-top: 0.1rem;
+  }
+
+  &__body {
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+    p {
+      color: $paper-dim;
+      font-size: 0.9rem;
+    }
+  }
+
+  &__note {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    color: $amber;
+  }
+}

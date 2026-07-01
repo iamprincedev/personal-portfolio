@@ -1,0 +1,43 @@
+// ============================================
+// DESIGN TOKENS — "Runtime" concept
+// A backend developer's console: dark ink canvas,
+// warm amber signal (echoes the studio-lit portrait),
+// content framed like API responses & terminal output.
+// ============================================
+
+// Color
+$ink:          #0b0e14;   // base background
+$ink-raised:   #12161f;   // card / raised surface
+$ink-border:   #232a38;   // hairline borders
+$paper:        #e9e6df;   // primary text (warm off-white)
+$paper-dim:    #9aa1b0;   // secondary text
+$paper-faint:  #5b6272;   // tertiary / muted text
+
+$amber:        #d6a15c;   // primary accent — signal / success
+$amber-dim:    #7a5f38;   // amber at low intensity
+$teal:         #4fa78f;   // secondary accent — "online" status
+$coral:        #c9695a;   // tertiary accent — used sparingly (errors/highlights)
+
+// Type
+$font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+$font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+$font-body:    'Inter', 'Segoe UI', sans-serif;
+
+// Spacing
+$gutter: clamp(1.25rem, 4vw, 4rem);
+$section-pad: clamp(4rem, 10vw, 8rem);
+
+// Layout
+$max-width: 1180px;
+$radius-sm: 4px;
+$radius-md: 8px;
+
+// Motion
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$dur-fast: 0.2s;
+$dur-med: 0.5s;
+$dur-slow: 0.9s;
+
+// Breakpoints
+$bp-tablet: 768px;
+$bp-mobile: 480px;

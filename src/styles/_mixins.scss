@@ -1,0 +1,49 @@
+@use 'variables' as *;
+
+@mixin container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding-left: $gutter;
+  padding-right: $gutter;
+}
+
+@mixin section {
+  padding-top: $section-pad;
+  padding-bottom: $section-pad;
+  position: relative;
+}
+
+@mixin mono-label {
+  font-family: $font-mono;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: $amber;
+}
+
+@mixin card {
+  background: $ink-raised;
+  border: 1px solid $ink-border;
+  border-radius: $radius-md;
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $amber;
+    outline-offset: 3px;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $bp-tablet) { @content; }
+}
+
+@mixin mobile {
+  @media (max-width: $bp-mobile) { @content; }
+}

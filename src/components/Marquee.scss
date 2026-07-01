@@ -1,0 +1,42 @@
+@use '../styles/variables' as *;
+
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid $ink-border;
+  border-bottom: 1px solid $ink-border;
+  background: $ink-raised;
+  padding: 0.85rem 0;
+
+  &__track {
+    display: flex;
+    width: max-content;
+    animation: marqueeScroll 26s linear infinite;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    font-family: $font-mono;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: $paper-dim;
+    padding: 0 1.75rem;
+    white-space: nowrap;
+  }
+
+  &__dot {
+    color: $amber;
+    margin-left: 1.75rem;
+  }
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}

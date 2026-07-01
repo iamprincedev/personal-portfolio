@@ -1,0 +1,186 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.projects {
+  @include section;
+
+  &__inner {
+    @include container;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.project {
+  @include card;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: border-color $dur-fast $ease-out, transform $dur-fast $ease-out;
+
+  &:hover {
+    border-color: $amber-dim;
+    transform: translateY(-4px);
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__route {
+    font-family: $font-mono;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $paper-dim;
+  }
+
+  &__method {
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: $radius-sm;
+    font-size: 0.7rem;
+
+    &--get { color: $teal; background: rgba($teal, 0.12); }
+    &--post { color: $amber; background: rgba($amber, 0.12); }
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    color: $paper-faint;
+  }
+
+  &__status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $paper-faint;
+  }
+
+  &__status--active .project__status-dot { background: $teal; box-shadow: 0 0 6px rgba($teal, 0.7); }
+  &__status--shipped .project__status-dot { background: $amber; }
+  &__status--in_progress .project__status-dot { background: $coral; animation: statusPulse 1.6s ease-in-out infinite; }
+
+  &__name {
+    font-size: 1.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  &__tag {
+    @include mono-label;
+    font-size: 0.72rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  &__desc {
+    color: $paper-dim;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-bottom: 1.5rem;
+
+    li {
+      font-size: 0.87rem;
+      color: $paper-dim;
+      padding-left: 1.1rem;
+      position: relative;
+
+      &::before {
+        content: '\2192';
+        position: absolute;
+        left: 0;
+        color: $amber;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid $ink-border;
+    flex-wrap: wrap;
+  }
+
+  &__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    span {
+      font-family: $font-mono;
+      font-size: 0.72rem;
+      color: $paper-faint;
+
+      &:not(:last-child)::after {
+        content: '\00b7';
+        margin-left: 0.5rem;
+        color: $ink-border;
+      }
+    }
+  }
+
+  &__repo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    color: $paper-dim;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid $ink-border;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: color $dur-fast $ease-out, border-color $dur-fast $ease-out, transform $dur-fast $ease-out;
+
+    &:hover {
+      color: $amber;
+      border-color: $amber-dim;
+      transform: translateY(-1px);
+    }
+
+    &-arrow {
+      transition: transform $dur-fast $ease-out;
+    }
+
+    &:hover &-arrow {
+      transform: translate(2px, -2px);
+    }
+  }
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@include reduced-motion {
+  .project__status--in_progress .project__status-dot { animation: none; }
+}

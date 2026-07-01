@@ -1,0 +1,62 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.skills {
+  @include section;
+  background: linear-gradient(to bottom, transparent, rgba($amber, 0.02), transparent);
+
+  &__inner {
+    @include container;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__group {
+    @include card;
+    padding: 1.5rem;
+    transition: border-color $dur-fast $ease-out, transform $dur-fast $ease-out;
+
+    &:hover {
+      border-color: $amber-dim;
+      transform: translateY(-3px);
+    }
+  }
+
+  &__group-title {
+    @include mono-label;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__tag {
+    font-size: 0.85rem;
+    color: $paper-dim;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid $ink-border;
+    border-radius: 999px;
+    transition: color $dur-fast $ease-out, border-color $dur-fast $ease-out;
+
+    .skills__group:hover & {
+      color: $paper;
+    }
+  }
+}

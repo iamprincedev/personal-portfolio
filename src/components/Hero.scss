@@ -1,0 +1,228 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 90px;
+  position: relative;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__title {
+    font-size: clamp(2.25rem, 5.2vw, 3.75rem);
+    line-height: 1.08;
+    margin-bottom: 1.5rem;
+
+    &-accent {
+      color: $amber;
+      font-style: italic;
+    }
+  }
+
+  &__tagline {
+    color: $paper-dim;
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin-bottom: 2.25rem;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  &__stats {
+    display: flex;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    flex-wrap: wrap;
+    border-top: 1px solid $ink-border;
+    padding-top: 1.5rem;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  &__stat-label {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    color: $paper-faint;
+  }
+
+  &__stat-value {
+    font-family: $font-mono;
+    font-size: 0.85rem;
+    color: $paper;
+  }
+
+  &__scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+
+    span {
+      font-family: $font-mono;
+      font-size: 0.7rem;
+      color: $paper-faint;
+      letter-spacing: 0.08em;
+    }
+
+    @include tablet { display: none; }
+  }
+
+  &__scroll-line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, $amber, transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.btn {
+  @include focus-ring;
+  font-family: $font-mono;
+  font-size: 0.9rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: $radius-sm;
+  display: inline-flex;
+  align-items: center;
+  transition: transform $dur-fast $ease-out, background $dur-fast $ease-out, border-color $dur-fast $ease-out;
+
+  &--primary {
+    background: $amber;
+    color: $ink;
+    font-weight: 500;
+
+    &:hover { transform: translateY(-2px); }
+  }
+
+  &--ghost {
+    border: 1px solid $ink-border;
+    color: $paper;
+
+    &:hover { border-color: $paper-dim; transform: translateY(-2px); }
+  }
+}
+
+// signature element: terminal / API console
+.console {
+  @include card;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+  font-family: $font-mono;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid $ink-border;
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  &__dots {
+    display: flex;
+    gap: 6px;
+    span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: $ink-border;
+    }
+    span:nth-child(1) { background: $coral; opacity: 0.7; }
+    span:nth-child(2) { background: $amber; opacity: 0.7; }
+    span:nth-child(3) { background: $teal; opacity: 0.7; }
+  }
+
+  &__title {
+    font-size: 0.75rem;
+    color: $paper-faint;
+    margin-left: 0.25rem;
+  }
+
+  &__body {
+    padding: 1.25rem 1.35rem 1.5rem;
+  }
+
+  &__request {
+    font-size: 0.85rem;
+    color: $paper-dim;
+    margin-bottom: 0.5rem;
+  }
+
+  &__method {
+    color: $teal;
+    font-weight: 600;
+  }
+
+  &__muted {
+    color: $paper-faint;
+  }
+
+  &__status {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  &__ok {
+    color: $teal;
+  }
+
+  &__json {
+    font-size: 0.85rem;
+    line-height: 1.85;
+    color: $paper;
+    white-space: pre;
+    min-height: 15.5em;
+  }
+
+  &__line {
+    animation: lineIn 0.3s $ease-out both;
+  }
+
+  &__cursor {
+    color: $amber;
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes lineIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@include reduced-motion {
+  .hero__scroll-line { animation: none; }
+  .console__cursor { animation: none; }
+}

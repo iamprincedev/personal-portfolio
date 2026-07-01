@@ -1,0 +1,128 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: background $dur-fast $ease-out, border-color $dur-fast $ease-out;
+  border-bottom: 1px solid transparent;
+
+  &--scrolled {
+    background: rgba($ink, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom-color: $ink-border;
+  }
+
+  &__inner {
+    @include container;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  &__logo {
+    font-family: $font-mono;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $paper;
+    letter-spacing: -0.02em;
+  }
+
+  &__logo-bracket {
+    color: $amber;
+  }
+
+  &__links {
+    display: flex;
+    gap: 1.75rem;
+    margin-left: auto;
+    margin-right: 2rem;
+
+    @include tablet { display: none; }
+  }
+
+  &__link {
+    @include focus-ring;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    font-family: $font-mono;
+    font-size: 0.85rem;
+    color: $paper-dim;
+    transition: color $dur-fast $ease-out;
+
+    &:hover { color: $paper; }
+  }
+
+  &__link-index {
+    color: $paper-faint;
+    font-size: 0.7rem;
+  }
+
+  &__cta {
+    @include focus-ring;
+    font-family: $font-mono;
+    font-size: 0.85rem;
+    color: $amber;
+    border: 1px solid $amber-dim;
+    padding: 0.5rem 1rem;
+    border-radius: $radius-sm;
+    transition: background $dur-fast $ease-out, border-color $dur-fast $ease-out;
+
+    &:hover {
+      background: rgba($amber, 0.1);
+      border-color: $amber;
+    }
+
+    @include tablet { display: none; }
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    width: 24px;
+    padding: 0.5rem 0;
+
+    span {
+      display: block;
+      height: 1.5px;
+      background: $paper;
+      transition: transform $dur-fast $ease-out, opacity $dur-fast $ease-out;
+    }
+
+    &--open span:first-child { transform: translateY(3.25px) rotate(45deg); }
+    &--open span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+
+    @include tablet { display: flex; }
+  }
+
+  &__mobile {
+    display: none;
+    flex-direction: column;
+    background: $ink-raised;
+    border-bottom: 1px solid $ink-border;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $dur-med $ease-out;
+
+    @include tablet { display: flex; }
+
+    &--open { max-height: 320px; }
+  }
+
+  &__mobile-link {
+    font-family: $font-mono;
+    font-size: 0.95rem;
+    color: $paper-dim;
+    padding: 1rem $gutter;
+    border-top: 1px solid $ink-border;
+
+    &--cta { color: $amber; }
+  }
+}

@@ -1,0 +1,78 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.contact {
+  @include section;
+  padding-bottom: 2rem;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3rem;
+    align-items: end;
+    padding-bottom: $section-pad;
+    border-bottom: 1px solid $ink-border;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  &__title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    margin: 0.5rem 0 1.25rem;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    @include focus-ring;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 0;
+    border-top: 1px solid $ink-border;
+    transition: padding-left $dur-fast $ease-out, color $dur-fast $ease-out;
+
+    &:last-child {
+      border-bottom: 1px solid $ink-border;
+    }
+
+    &:hover {
+      padding-left: 0.5rem;
+      color: $amber;
+    }
+  }
+
+  &__link-label {
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    color: $paper-faint;
+  }
+
+  &__link-value {
+    font-family: $font-display;
+    font-size: 1.05rem;
+  }
+}
+
+.footer {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  color: $paper-faint;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
