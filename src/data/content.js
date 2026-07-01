@@ -80,7 +80,7 @@ export const projects = [
     ],
     stack: ["Node.js", "Express", "MongoDB", "JWT", "Multer", "ImageKit"],
     status: "shipped",
-    repo: "https://github.com/iamprincedev/tunify",
+    repo: "https://github.com/iamprincedev/tunify-backend",
   },
   {
     id: "pixora",
