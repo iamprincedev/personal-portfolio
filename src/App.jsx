@@ -1,13 +1,14 @@
-import Nav from './components/Nav';
-import Cursor from './components/Cursor';
-import ScrollProgress from './components/ScrollProgress';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Timeline from './components/Timeline';
-import Contact from './components/Contact';
+import Nav from "./components/Nav";
+import Cursor from "./components/Cursor";
+import ScrollProgress from "./components/ScrollProgress";
+import Hero from "./components/Hero";
+import Marquee from "./components/Marquee";
+import About from "./components/About";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Timeline from "./components/Timeline";
+import Contact from "./components/Contact";
+import ChatWidget from "./components/ChatWidget/ChatWidget";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Timeline />
         <Contact />
       </main>
+      <ChatWidget />
     </>
   );
 }
