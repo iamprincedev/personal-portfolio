@@ -12,8 +12,10 @@ const ChatWidget = () => {
         "Hi! I'm Prince's portfolio assistant. Ask me anything about his projects or skills!",
     },
   ]);
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
   const bottomRef = useRef(null);
 
   useEffect(() => {
@@ -23,49 +25,61 @@ const ChatWidget = () => {
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 
-    const userMsg = { role: "user", content: input };
+    const userMsg = {
+      role: "user",
+      content: input,
+    };
+
     const updatedMessages = [...messages, userMsg];
+
     setMessages(updatedMessages);
     setInput("");
     setLoading(true);
 
     try {
-      // Build history without the initial welcome message and without the current message
-      const historyForAPI = updatedMessages
-        .slice(1, -1)
-        .map((m) => ({ role: m.role, content: m.content }));
+      const historyForAPI = updatedMessages.slice(1, -1).map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
 
       const res = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           message: userMsg.content,
           history: historyForAPI,
         }),
       });
 
-      const data = await res.json();
+      console.log("HTTP Status:", res.status);
 
-      if (data.reply) {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: data.reply },
-        ]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content: "Something went wrong. Please try again.",
-          },
-        ]);
+      const text = await res.text();
+
+      console.log("API Response:", text);
+
+      if (!res.ok) {
+        throw new Error(text);
       }
-    } catch (err) {
+
+      const data = JSON.parse(text);
+
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "Network error. Please try again later.",
+          content: data.reply || "Something went wrong. Please try again.",
+        },
+      ]);
+    } catch (err) {
+      console.error("Fetch Error:", err);
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: `❌ ${err.message}`,
         },
       ]);
     } finally {
@@ -74,7 +88,9 @@ const ChatWidget = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") sendMessage();
+    if (e.key === "Enter") {
+      sendMessage();
+    }
   };
 
   return (
@@ -85,32 +101,38 @@ const ChatWidget = () => {
             <span>&gt;_ ask-about-prince</span>
             <button onClick={() => setIsOpen(false)}>×</button>
           </div>
+
           <div className="chat-body">
             {messages.map((msg, i) => (
               <div key={i} className={`chat-bubble ${msg.role}`}>
                 {msg.content}
               </div>
             ))}
+
             {loading && (
-              <div className="chat-bubble assistant typing">typing...</div>
+              <div className="chat-bubble assistant typing">Typing...</div>
             )}
+
             <div ref={bottomRef} />
           </div>
+
           <div className="chat-input">
             <input
               type="text"
+              placeholder="Type your message..."
               value={input}
+              disabled={loading}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type a message..."
-              disabled={loading}
             />
+
             <button onClick={sendMessage} disabled={loading}>
               Send
             </button>
           </div>
         </div>
       )}
+
       <button className="chat-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "×" : "💬"}
       </button>
